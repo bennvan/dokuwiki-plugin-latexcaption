@@ -70,7 +70,7 @@ class syntax_plugin_latexcaption_caption extends DokuWiki_Syntax_Plugin
         $this->Lexer->addExitPattern('</fileblock>','plugin_latexcaption_caption');
 
         $captiontag = $this->getConf('captiontag');
-        $this->Lexer->addPattern('<'.$captiontag.'>(?=.*</'.$captiontag.'>)','plugin_latexcaption_caption')
+        $this->Lexer->addPattern('<'.$captiontag.'>(?=.*</'.$captiontag.'>)','plugin_latexcaption_caption');
         $this->Lexer->addPattern('</'.$captiontag.'>','plugin_latexcaption_caption');
     }
 
