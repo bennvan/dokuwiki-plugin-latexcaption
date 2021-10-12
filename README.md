@@ -29,6 +29,7 @@ Example output:
 New Syntax/ Example:
 -------------
 
+ - Currently supported blocks to caption are: `figure`, `subfigure`, `table`, `subtable`, `codeblock`, `fileblock`. 
 
 ```
 <figure opts| fig_label>
@@ -47,14 +48,14 @@ New Syntax/ Example:
 Options:
 ------------
 
- - Alignment classes: 'left', 'center', 'right', 'flex-left', 'flex-center', 'flex-even', 'flex-right'
- - Caption behaviour: 'cell-bottom', 'cell-top'. This enforces long captions to be no wider than the image/table. Top and bottom refers to position of caption in relation to figure. Most useful to use this with subfigure captions but also works with main captions. Keep in mind this adds the css style 'display: table' which conflicts with flex or other responsive classes.  
- - No colon: 'blank'. Use this if you dont want to print a ':' after the figure number.
+ - Alignment classes: `left`, `center`, `right`, `flex-left`, `flex-center`, `flex-even`, `flex-right`
+ - Caption behaviour: `cell-bottom`, `cell-top`. This enforces long captions to be no wider than the image/table. Top and bottom refers to position of caption in relation to figure. Most useful to use this with subfigure captions but also works with main captions. Keep in mind this adds the css style `display: table;` which conflicts with flex or other responsive classes.  
+ - No colon: `blank`. Use this if you dont want to print a ':' after the figure number.
 
-If you want to apply your own css stying to the figures. Any option input are added as a class in the form 'plugin_latexcaption_{option}'.
+If you want to apply your own css stying to the figures. Any option input are added as a class in the form `plugin_latexcaption_{option}`.
 
 
-Example with centering and caption but no label:
+Example with centering and caption number only:
 
 ```
 <figure flex-center blank>
@@ -92,8 +93,14 @@ Warning: References may render unexpected results if your labels are not unique 
 Set counter:
 -------------
 
+You can set the counter to any integer value at any point on the page. 
+
 ```
-{{setcounter figure=5}}
+<!-- Set the figure counter to 5 -->
+{{setcounter figure=5}} 
+
+<!-- Set the table counter to 3 -->
+{{setcounter table=3}} 
 ```
 
 -----
