@@ -18,7 +18,7 @@ Fixes:
 - Code easy to expand to caption label more tags if needed.
 - Updated some css styles.
 
-The following outputs are using the bootstrap3 template. Please note that the '<caption></caption>' syntax conflicts with bootstraps' caption. I recommend to modify the boostrap3 syntax to use something like '<bscaption></bscaption>', or alternatively I have provided a setting to change the syntax of this plugin. 
+The following outputs are using the bootstrap3 template. Please note that the `<caption></caption>` syntax conflicts with bootstraps' caption. I recommend to modify the boostrap3 syntax to use something like `<bscaption></bscaption>`, or alternatively I have provided a setting to change the syntax of this plugin. 
 
 Example output:
 -------------
@@ -48,7 +48,7 @@ Options:
 ------------
 
  - Alignment classes: 'left', 'center', 'right', 'flex-left', 'flex-center', 'flex-even', 'flex-right'
- - Caption behaviour: 'cell-bottom', 'cell-top'. This enforces long captions to be no wider than the image/table. Top and bottom refers to position of caption in relation to figure. Most useful to use this with subfigure captions but also works with main captions. Keep in mind this adds the style 'display: table' which conflicts with flex or other responsive classes.  
+ - Caption behaviour: 'cell-bottom', 'cell-top'. This enforces long captions to be no wider than the image/table. Top and bottom refers to position of caption in relation to figure. Most useful to use this with subfigure captions but also works with main captions. Keep in mind this adds the css style 'display: table' which conflicts with flex or other responsive classes.  
  - No colon: 'blank'. Use this if you dont want to print a ':' after the figure number.
 
 If you want to apply your own css stying to the figures. Any option input are added as a class in the form 'plugin_latexcaption_{option}'.
