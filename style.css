@@ -1,0 +1,104 @@
+.plugin_latexcaption_figure {
+    width: fit-content;
+}
+
+.plugin_latexcaption_subfigure,
+.plugin_latexcaption_subtable {
+    padding: 5px;
+}
+
+.plugin_latexcaption_caption {
+    clear: both;
+    width: 100%;
+}
+
+
+.plugin_latexcaption_subfigure.plugin_latexcaption_cell-bottom,
+.plugin_latexcaption_subtable.plugin_latexcaption_cell-bottom,
+.plugin_latexcaption_subfigure.plugin_latexcaption_cell-top,
+.plugin_latexcaption_subtable.plugin_latexcaption_cell-top, {
+    padding: 1rem;
+}
+
+.plugin_latexcaption_cell-top,
+.plugin_latexcaption_cell-bottom {
+    display: table !important;
+}
+
+.plugin_latexcaption_cell-bottom > .plugin_latexcaption_caption {
+    display: table-caption;
+    caption-side: bottom;
+    clear: both;
+}
+
+.plugin_latexcaption_cell-top > .plugin_latexcaption_caption {
+    display: table-caption;
+    caption-side: top;
+    clear: both;
+}
+
+.plugin_latexcaption_flex,
+.plugin_latexcaption_flex-left,
+.plugin_latexcaption_flex-right,
+.plugin_latexcaption_flex-center,
+.plugin_latexcaption_flex-even {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0;
+    align-items: flex-start;
+}
+
+.plugin_latexcaption_flex-even {
+    clear: both;
+    margin: .2em auto;
+    justify-content: space-evenly;
+}
+
+.plugin_latexcaption_flex-center {
+    clear: both;
+    margin: .2em auto;
+    justify-content: center;
+}
+
+.plugin_latexcaption_flex-right {
+    justify-content: center;
+    float: right;
+}
+
+.plugin_latexcaption_flex-left {
+    justify-content: center;
+    float: left;
+}
+
+.plugin_latexcaption_center {
+    clear: both;
+    display: block;
+    margin: .2em auto;
+}
+
+.plugin_latexcaption_right {
+    float: right;
+    margin: .2em 0 .2em 1em;
+}
+
+.plugin_latexcaption_left {
+    float: left;
+    margin: .2em 1em .2em 0;
+}
+
+
+div.plugin_latexcaption_caption, 
+figcaption.plugin_latexcaption_caption {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.9em;
+}
+
+span.plugin_latexcaption_caption_number {
+    font-weight: bold;
+}
+
+div.picker.captionpicker {
+    width: auto;
+}
