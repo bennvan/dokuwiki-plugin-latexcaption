@@ -26,7 +26,7 @@ class action_plugin_latexcaption extends DokuWiki_Action_Plugin {
         $captiontag = $this->getConf('captiontag');
         $event->data[] = array (
             'type' => 'picker',
-            'title' => $this->getLang('picker'),
+            'title' => $this->getLang('latexcaption'),
             'icon' => '../../plugins/latexcaption/images/picker.png',
             'class' => 'captionpicker',
             'list' => array(

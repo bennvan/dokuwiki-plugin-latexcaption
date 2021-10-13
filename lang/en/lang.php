@@ -20,6 +20,6 @@ $lang['table'] = 'Add table with caption';
 $lang['code'] = 'Add code listing with caption';
 $lang['file'] = 'Add file listing with caption';
 $lang['reference'] = 'Reference to figure/table';
-
+$lang['latexcaption'] = 'Latex Captions';
 
 //Setup VIM: ex: et ts=4 :
