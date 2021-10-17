@@ -1,5 +1,6 @@
 .plugin_latexcaption_figure {
     width: fit-content;
+    max-width: 100%;
 }
 
 .plugin_latexcaption_subfigure,
