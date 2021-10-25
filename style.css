@@ -6,6 +6,7 @@
 .plugin_latexcaption_subfigure,
 .plugin_latexcaption_subtable {
     padding: 5px;
+    overflow: auto;
 }
 
 .plugin_latexcaption_caption {
