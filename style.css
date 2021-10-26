@@ -53,13 +53,13 @@
 
 .plugin_latexcaption_flex-even {
     clear: both;
-    margin: .2em auto;
+    margin: 0 auto 0.2em auto;
     justify-content: space-evenly;
 }
 
 .plugin_latexcaption_flex-center {
     clear: both;
-    margin: .2em auto;
+    margin: 0 auto 0.2em auto;
     justify-content: center;
 }
 
@@ -76,7 +76,7 @@
 .plugin_latexcaption_center {
     clear: both;
     display: block;
-    margin: .2em auto;
+    margin: 0 auto 0.2em auto;
 }
 
 .plugin_latexcaption_right {
