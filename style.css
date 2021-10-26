@@ -81,12 +81,12 @@
 
 .plugin_latexcaption_right {
     float: right;
-    margin: .2em 0 .2em 1em;
+    margin: 0 0 .2em 1em;
 }
 
 .plugin_latexcaption_left {
     float: left;
-    margin: .2em 1em .2em 0;
+    margin: 0 1em .2em 0;
 }
 
 
