@@ -51,7 +51,7 @@ class syntax_plugin_latexcaption_caption extends DokuWiki_Syntax_Plugin
     }
 
     public function getSort() {
-        return 319;
+        return 310;
     }
 
 
@@ -83,9 +83,10 @@ class syntax_plugin_latexcaption_caption extends DokuWiki_Syntax_Plugin
     }
 
     public function handle($match, $state, $pos, Doku_Handler $handler){
+        global $caption_count;
+
         $params = [];
         if ($state == DOKU_LEXER_ENTER){
-            global $caption_count;
             // INPUT $match:<type opts|label>
             // Strip the <>
             $match = substr($match,1,-1);
