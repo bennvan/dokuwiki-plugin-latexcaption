@@ -78,7 +78,7 @@ class syntax_plugin_latexcaption_reference extends DokuWiki_Syntax_Plugin {
         // Store refs from global variable into metadata
         if ($mode == 'metadata') {
             if ($caption_count[$label]) {
-                $renderer->meta['plugins']['latexcaption']['references'][$label] = $caption_count[$label];   
+                $renderer->meta['plugin']['latexcaption']['references'][$label] = $caption_count[$label];   
             }
             return true;
         }
@@ -89,7 +89,7 @@ class syntax_plugin_latexcaption_reference extends DokuWiki_Syntax_Plugin {
 
             $markup = '<a href="#'.$label.'">';
             // Retrieve the figure label from the global array or metadata
-            $caption = ($caption_count[$label]) ? $caption_count[$label] : $INFO['meta']['plugins']['latexcaption']['references'][$label];
+            $caption = ($caption_count[$label]) ? $caption_count[$label] : $INFO['meta']['plugin']['latexcaption']['references'][$label];
             if ($caption) {
                 list($type, $num, $parnum) = $caption;
                 if (substr($type, 0, 3) == 'sub') {
