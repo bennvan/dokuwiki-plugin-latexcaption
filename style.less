@@ -1,0 +1,71 @@
+
+.plugin_latexcaption_figure {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: fit-content;
+    max-width: -moz-fit-content;
+    align-items: flex-start;
+    margin: 0;
+    position: relative;
+}
+
+.plugin_latexcaption_subfigure {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-left: 4px;
+    margin-right: 4px;
+    padding: 3px;
+    overflow: auto;
+    clear: both;
+    position: relative;
+}
+
+.plugin_latexcaption_figure > .plugin_latexcaption_caption,
+.plugin_latexcaption_subfigure > .plugin_latexcaption_caption {
+    flex-basis: 100%;
+    clear: both;
+    width: 0;
+}
+
+.plugin_latexcaption_center {
+    clear: both;
+    margin: 0 auto 0.2em auto;
+}
+
+.plugin_latexcaption_right {
+    float: right;
+    margin: 0 0 .2em 1em;
+}
+
+.plugin_latexcaption_left {
+    float: left;
+    margin: 0 1em .2em 0;
+}
+
+.plugin_latexcaption_even {
+    clear: both;
+    margin: 0 auto 0.2em auto;
+    justify-content: space-evenly;
+}
+
+div.plugin_latexcaption_caption, 
+figcaption.plugin_latexcaption_caption {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.9em;
+}
+
+span.plugin_latexcaption_caption_number {
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+div.picker.captionpicker {
+    width: auto;
+}
+
+
+
+
