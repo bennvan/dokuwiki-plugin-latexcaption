@@ -11,12 +11,12 @@ https://github.com/tillbiskup/dokuwiki-caption
 
 
 Fixes: 
-- No more 'dangerous' string searches to set reference links that appear before a label definition.
+- No string searches to set reference links that appear before a label definition.
 - Change syntax to allow multiple classes to be used eg. left, center, right.
-- Add ability to have subfigures/tables if your template allows.
+- Add ability to have subfigures/tables.
 - Add option to change caption tag syntax.
 - Code easy to expand to caption label more tags if needed.
-- Updated some css styles.
+- Updated some css styles to use flexbox.
 
 The following outputs are using the bootstrap3 template. Please note that the `<caption></caption>` syntax conflicts with bootstraps' caption. I recommend to modify the boostrap3 syntax to use something like `<bscaption></bscaption>`, or alternatively I have provided a setting to change the syntax of this plugin. 
 
@@ -48,8 +48,7 @@ New Syntax/ Example:
 Options:
 ------------
 
- - Alignment classes: `left`, `center`, `right`, `flex-left`, `flex-center`, `flex-even`, `flex-right`
- - Caption behaviour: `cell-bottom`, `cell-top`. This enforces long captions to be no wider than the image/table. Top and bottom refers to position of caption in relation to figure. Most useful to use this with subfigure captions but also works with main captions. Keep in mind this adds the css style `display: table;` which conflicts with flex or other responsive classes.  
+ - Alignment classes: `left`, `center`, `right`, `even`.  `even` may only be used with figures.
  - No colon: `blank`. Use this if you dont want to print a ':' after the figure number.
 
 If you want to apply your own css stying to the figures. Any option input are added as a class in the form `plugin_latexcaption_{option}`.
@@ -58,7 +57,7 @@ If you want to apply your own css stying to the figures. Any option input are ad
 Example with centering and caption number only:
 
 ```
-<figure flex-center blank>
+<figure center blank>
  {{image1.jpg?direct&200}}
  <caption></caption>
 </figure>
@@ -66,12 +65,12 @@ Example with centering and caption number only:
 
 Example subfigure with a long caption:
 ```
-<figure flex-center>
- <subfigure cell-bottom>
+<figure center>
+ <subfigure>
  	{{image1.jpg?direct&200}}
  <caption>A really long subfigure caption much longer than the image that needs to wrap</caption>
  </subfigure>
- <subfigure cell-bottom>
+ <subfigure>
 	{{image2.jpg?direct&200}}
  <caption>A moderately sized subfigure caption</caption>
  </subfigure>
