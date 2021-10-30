@@ -64,7 +64,6 @@ class syntax_plugin_latexcaption_reference extends DokuWiki_Syntax_Plugin {
         }
 
         list($state,$match) = $data;
-
         global $caption_count;
 
         $label = $match;
@@ -75,11 +74,24 @@ class syntax_plugin_latexcaption_reference extends DokuWiki_Syntax_Plugin {
                 return true;
             }
 
-        if ($mode == 'xhtml') {
-            $markup = '<a href="#'.$label.'">';
-            // Retrieve the figure label from the global array
+        /** @var Doku_Renderer_metadata $renderer */
+        // Store refs from global variable into metadata
+        if ($mode == 'metadata') {
             if ($caption_count[$label]) {
-                list($type, $num, $parnum) = $caption_count[$label];
+                $renderer->meta['plugins']['latexcaption']['references'][$label] = $caption_count[$label];   
+            }
+            return true;
+        }
+
+        /** @var Doku_Renderer_metadata $renderer */
+        if ($mode == 'xhtml') {
+            global $INFO;
+
+            $markup = '<a href="#'.$label.'">';
+            // Retrieve the figure label from the global array or metadata
+            $caption = ($caption_count[$label]) ? $caption_count[$label] : $INFO['meta']['plugins']['latexcaption']['references'][$label];
+            if ($caption) {
+                list($type, $num, $parnum) = $caption;
                 if (substr($type, 0, 3) == 'sub') {
                     $type = substr($type, 3);
                     $markup .= $this->getLang($type.$langset).' '.$parnum.'('.number_to_alphabet($num).')';
