@@ -15,12 +15,12 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
      * Static variables set to keep track when scope is left.
      */
     private static $_types = array('figure', 'table','codeblock','fileblock');
-    private static $_type = '';
-    private static $_incaption = false;
-    private static $_label = '';
-    private static $_opts = array();
-    private static $_parOpts = array();
-    private static $_nested = false;
+    private $_type = '';
+    private $_incaption = false;
+    private $_label = '';
+    private $_opts = array();
+    private $_parOpts = array();
+    private $_nested = false;
 
     /** @var $helper helper_plugin_latexcaption */
     var $helper = null;
@@ -91,14 +91,14 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
             $opts = (!empty($opts) ? explode(' ', $opts) : ['noalign',]);
 
             // Set dynamic class counter variable
-            $type_counter_def = '$_'.$type.'_count';
+            $type_counter_def = '_'.$type.'_count';
 
             // Increment the counter of relevant type
             // Store the type in class for caption match to determine what html tag to use
             // This is ok since we will never have nested figures and more than one caption
-            $this::$_type = $type;
-            $this::$_label = $label;
-            $this::$_opts = $opts;
+            $this->_type = $type;
+            $this->_label = $label;
+            $this->_opts = $opts;
             $this->{$type_counter_def} = (!isset($this->{$type_counter_def}) ? 1 : $this->{$type_counter_def}+1);
 
             // save params to class variables (cached for use in render)
@@ -110,16 +110,16 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
                 // Check if we are counting a subtype to store parent in array for references
                 if ($this->isSubType($type)) {
                     $partype = $this->getParType($type);
-                    $parcount = $this->{'$_'.$partype.'_count'};
+                    $parcount = $this->{'_'.$partype.'_count'};
                 }
                 $caption_count[$label] = array($type, $type_counter, $parcount);
             }
 
             //Save parent options for use later
             if (!$this->isSubType($type)){
-                $this::$_parOpts = $opts;
+                $this->_parOpts = $opts;
             } else {
-                $this::$_nested = true;
+                $this->_nested = true;
             }
 
             // Set the params
@@ -133,15 +133,15 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
         if ($state == DOKU_LEXER_MATCHED){
             // Case of caption. 
             // Toggle the incaption flag
-            $this::$_incaption = !$this::$_incaption;
-            $type = $this::$_type;
-            $params['label'] = $this::$_label;
+            $this->_incaption = !$this->_incaption;
+            $type = $this->_type;
+            $params['label'] = $this->_label;
             $params['xhtml']['captagtype'] = (in_array($type, ['figure', 'subfigure']) ? 'figcaption' : 'div');
-            $params['incaption'] = $this::$_incaption;
-            $params['type_counter'] = $this->{'$_'.$type.'_count'};
+            $params['incaption'] = $this->_incaption;
+            $params['type_counter'] = $this->{'_'.$type.'_count'};
             $params['type'] = $type;
             // Decide what caption options to send to renderer
-            $params['opts'] = ($this::$_nested ? $this::$_opts : $this::$_parOpts);
+            $params['opts'] = ($this->_nested ? $this->_opts : $this->_parOpts);
             
 
             return array($state, $match, $pos, $params);
@@ -150,16 +150,16 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
             return array($state, $match, $pos, $params);
         }
         if ($state == DOKU_LEXER_EXIT){
-            $type = $this::$_type;
+            $type = $this->_type;
 
             if (substr($type, 0, 3) == 'sub') {
                 // Change environment back to non sub type
-                $this::$_type = substr($type, 3);
-                $this::$_nested = false;
+                $this->_type = substr($type, 3);
+                $this->_nested = false;
             }
             else {
                 // reset subtype counter
-                $this->{'$_sub'.$type.'_count'} = 0;
+                $this->{'_sub'.$type.'_count'} = 0;
             }
             $params['type'] = $type;
             $params['xhtml']['tagtype'] = (in_array($type, ['figure', 'subfigure']) ? 'figure' : 'div');
@@ -181,7 +181,7 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
             }
 
             // Update the counter. offset by 1 since counter is incremented on caption enter
-            $this->{'$_'.$type.'_count'} = $num-1;
+            $this->{'_'.$type.'_count'} = $num-1;
 
             return true;
         }
