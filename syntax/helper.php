@@ -10,7 +10,7 @@
 /**
  * Common functions
  */
-class helper_plugin_latexcaption extends DokuWiki_Plugin {
+class helper_plugin_latexcaption extends \dokuwiki\Extension\Plugin {
 
     function number_to_alphabet($number) {
         $number = intval($number);

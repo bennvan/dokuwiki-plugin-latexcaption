@@ -8,7 +8,7 @@
  */
  
 
-class action_plugin_latexcaption extends DokuWiki_Action_Plugin {
+class action_plugin_latexcaption extends \dokuwiki\Extension\ActionPlugin {
 
     public function register(Doku_Event_Handler $controller) {
         $controller->register_hook("TOOLBAR_DEFINE", "AFTER", $this, "insert_button", array ());
