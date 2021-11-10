@@ -8,8 +8,6 @@
  */
 
 
-use \dokuwiki\plugin\CaptionHelper;
-
 class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugin 
 {
 
