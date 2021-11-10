@@ -7,25 +7,12 @@
  * @author  Till Biskup <till@till-biskup>
  */
 
-// must be run within Dokuwiki
-if (!defined('DOKU_INC')) die();
 
-if (!defined('DOKU_LF')) define('DOKU_LF', "\n");
-if (!defined('DOKU_TAB')) define('DOKU_TAB', "\t");
-if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
+class syntax_plugin_latexcaption_reference extends \dokuwiki\Extension\SyntaxPlugin {
 
-require_once DOKU_PLUGIN.'syntax.php';
-require_once 'caption_helper.php';
+    /** @var $helper helper_plugin_latexcaption */
+    var $helper = null;
 
-class syntax_plugin_latexcaption_reference extends DokuWiki_Syntax_Plugin {
-
-    /**
-     * Array containing the types of environment supported by the plugin
-     */
-
-    /**
-     * return some info
-     */
     function getInfo(){
         return confToHash(dirname(__FILE__).'/../plugin.info.txt');
     }
@@ -87,6 +74,9 @@ class syntax_plugin_latexcaption_reference extends DokuWiki_Syntax_Plugin {
         if ($mode == 'xhtml') {
             global $INFO;
 
+            if (!$this->$helper)
+                $this->$helper = plugin_load('helper', 'latexcaption');
+
             $markup = '<a href="#'.$label.'">';
             // Retrieve the figure label from the global array or metadata
             $caption = ($caption_count[$label]) ? $caption_count[$label] : $INFO['meta']['plugin']['latexcaption']['references'][$label];
@@ -94,7 +84,7 @@ class syntax_plugin_latexcaption_reference extends DokuWiki_Syntax_Plugin {
                 list($type, $num, $parnum) = $caption;
                 if (substr($type, 0, 3) == 'sub') {
                     $type = substr($type, 3);
-                    $markup .= $this->getLang($type.$langset).' '.$parnum.'('.number_to_alphabet($num).')';
+                    $markup .= $this->getLang($type.$langset).' '.$parnum.'('.$this->$helper->number_to_alphabet($num).')';
                 }
                 else{
                     $markup .= $this->getLang($type.$langset).' '.$num;

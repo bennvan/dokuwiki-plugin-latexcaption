@@ -7,17 +7,10 @@
  * @author  Till Biskup <till@till-biskup>
  */
 
-// must be run within Dokuwiki
-if (!defined('DOKU_INC')) die();
 
-if (!defined('DOKU_LF')) define('DOKU_LF', "\n");
-if (!defined('DOKU_TAB')) define('DOKU_TAB', "\t");
-if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
+use \dokuwiki\plugin\CaptionHelper;
 
-require_once DOKU_PLUGIN.'syntax.php';
-require_once 'caption_helper.php';
-
-class syntax_plugin_latexcaption_caption extends DokuWiki_Syntax_Plugin 
+class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugin 
 {
 
     /**
@@ -30,10 +23,11 @@ class syntax_plugin_latexcaption_caption extends DokuWiki_Syntax_Plugin
     private static $_opts = array();
     private static $_parOpts = array();
     private static $_nested = false;
+
+    /** @var $helper helper_plugin_latexcaption */
+    var $helper = null;
     
-    /**
-     * return some info
-     */
+
     function getInfo(){
         return confToHash(dirname(__FILE__).'/../plugin.info.txt');
     }
@@ -243,6 +237,9 @@ class syntax_plugin_latexcaption_caption extends DokuWiki_Syntax_Plugin
 
                 $separator = (in_array('blank', $opts) ? '' : ': ');
 
+                if (!$this->$helper)
+                    $this->$helper = plugin_load('helper', 'latexcaption');
+
                 // Rendering a caption
                 if ($incaption) {
                     $markup .= '<'.$captagtype.' class="plugin_latexcaption_caption"><span class="plugin_latexcaption_caption_number"';
@@ -250,7 +247,7 @@ class syntax_plugin_latexcaption_caption extends DokuWiki_Syntax_Plugin
                     // if ($label) $markup .= ' title="'.$label.'"';
                     $markup .= '>';
                     if (substr($type, 0, 3) == 'sub') {
-                        $markup .= '('.number_to_alphabet($count).') ';
+                        $markup .= '('.$this->$helper->number_to_alphabet($count).') ';
                     }
                     else {
                         $markup .= $this->getLang($type.$langset).' '. $count.$separator;

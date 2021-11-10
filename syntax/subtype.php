@@ -6,14 +6,6 @@
  * @author  Ben van Magill <ben.vanmagill16@gmail.com>
  */
 
-// must be run within Dokuwiki
-if (!defined('DOKU_INC')) die();
-
-if (!defined('DOKU_LF')) define('DOKU_LF', "\n");
-if (!defined('DOKU_TAB')) define('DOKU_TAB', "\t");
-if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
-
-require_once DOKU_PLUGIN.'syntax.php';
 
 class syntax_plugin_latexcaption_subtype extends syntax_plugin_latexcaption_caption
 {
