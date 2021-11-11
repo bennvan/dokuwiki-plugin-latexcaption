@@ -96,10 +96,10 @@ You can set the counter to any integer value at any point on the page.
 
 ```
 <!-- Set the figure counter to 5 -->
-{{setcounter figure=5}} 
+{{setcounter>figure=5}} 
 
 <!-- Set the table counter to 3 -->
-{{setcounter table=3}} 
+{{setcounter>table=3}} 
 ```
 
 -----
