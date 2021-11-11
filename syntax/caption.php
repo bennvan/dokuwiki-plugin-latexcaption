@@ -48,7 +48,7 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
 
 
     public function connectTo($mode) {
-        $this->Lexer->addSpecialPattern('{{setcounter [a-z0-9=]+?}}',$mode,'plugin_latexcaption_caption');
+        $this->Lexer->addSpecialPattern('{{setcounter>[a-z0-9=]+?}}',$mode,'plugin_latexcaption_caption');
         $this->Lexer->addEntryPattern('<figure.*?>(?=.*</figure>)',$mode,'plugin_latexcaption_caption');
         $this->Lexer->addEntryPattern('<table.*?>(?=.*</table>)',$mode,'plugin_latexcaption_caption');
         $this->Lexer->addEntryPattern('<codeblock.*?>(?=.*</codeblock>)',$mode,'plugin_latexcaption_caption');
@@ -166,7 +166,7 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
             return array($state, $match, $pos, $params);
         }
         if ($state == DOKU_LEXER_SPECIAL){
-            if (substr($match,0,13) != '{{setcounter ') {
+            if (substr($match,0,13) != '{{setcounter>') {
                 return true;
             }
 
