@@ -82,6 +82,16 @@ This gives the output:
 
 ![Example output2](example2.png "output of Example2")
 
+
+It is also possible to have more than one image in a figure/subfigure to group them with one caption:
+```
+<figure center>
+    {{image1.jpg?direct&200}}
+    {{image2.jpg?direct&200}}
+ <caption>A caption</caption>
+</figure>
+```
+
 In text referencing:
 -------------
 ```
