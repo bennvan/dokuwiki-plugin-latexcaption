@@ -48,7 +48,7 @@ New Syntax/ Example:
 Options:
 ------------
 
- - Alignment classes: `left`, `center`, `right`, `even`.  `even` may only be used with figures.
+ - Alignment classes: `left`, `center`, `right`, `even` and can be used in conjunction with optional media queries (`-sm`, `-md`, `-lg`, `-xl`) eg. `right-sm`.  `even` may only be used with figures.
  - No colon: `blank`. Use this if you dont want to print a ':' after the figure number.
 
 If you want to apply your own css stying to the figures. Any option input are added as a class in the form `plugin_latexcaption_{option}`.
