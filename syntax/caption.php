@@ -15,6 +15,7 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
      * Static variables set to keep track when scope is left.
      */
     private static $_types = array('figure', 'table','codeblock','fileblock');
+    private $caption_count = array();
     private $_type = '';
     private $_incaption = false;
     private $_label = '';
@@ -112,7 +113,9 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
                     $partype = $this->getParType($type);
                     $parcount = $this->{'_'.$partype.'_count'};
                 }
-                $caption_count[$label] = array($type, $type_counter, $parcount);
+                // Get caption metadata ready for use in reference syntax. Also store in global array for preview to render correctly
+                $this->caption_count[$label] = array($type, $type_counter, $parcount);
+                $caption_count = $this->caption_count;
             }
 
             //Save parent options for use later
@@ -127,6 +130,7 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
             $params['label'] = $label; 
             $params['opts'] = $opts;
             $params['type'] = $type;
+            $params['meta'] = $this->caption_count;
 
             return array($state, $match, $pos, $params);
         }
@@ -199,11 +203,21 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
 
         $langset = ($this->getConf('abbrev') ? 'abbrev' : 'long');
 
-        if (!in_array($mode, ['xhtml','odt', 'latex'])) {
+        if (!in_array($mode, ['metadata', 'xhtml','odt', 'latex'])) {
             return true;
         }
 
-        if ($mode == 'xhtml') {
+        /** @var Doku_Renderer_metadata $renderer */
+        // Store refs into metadata if there was any labels
+        if ($mode == 'metadata') {
+            if (empty($params['meta'])) return true;
+
+            $renderer->meta['plugin']['latexcaption']['references'] = $params['meta'];   
+            return true;
+        }
+
+        /** @var Doku_Renderer_xhtml $renderer */
+        elseif ($mode == 'xhtml') {
             if ($state == DOKU_LEXER_ENTER) {
                 // We know we already have a valid type on entering this
                 $type = $params['type'];
@@ -273,7 +287,7 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
             }
         }
 
-        if ($mode == 'latex') { 
+        elseif ($mode == 'latex') { 
             // All Doku $states get type param
             // Only figure and table supported.
             $type = $params['type'];
@@ -316,7 +330,7 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
          *          with the tables - therefore, within the table tags only a table
          *            is allowed, without any additional markup.
          */
-        if ($mode == 'odt') {
+        elseif ($mode == 'odt') {
             // All Doku $states get type param
             // Only figure and table supported.
             $type = $params['type'];

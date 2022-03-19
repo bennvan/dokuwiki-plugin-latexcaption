@@ -61,16 +61,7 @@ class syntax_plugin_latexcaption_reference extends \dokuwiki\Extension\SyntaxPlu
                 return true;
             }
 
-        /** @var Doku_Renderer_metadata $renderer */
-        // Store refs from global variable into metadata
-        if ($mode == 'metadata') {
-            if ($caption_count[$label]) {
-                $renderer->meta['plugin']['latexcaption']['references'][$label] = $caption_count[$label];   
-            }
-            return true;
-        }
-
-        /** @var Doku_Renderer_metadata $renderer */
+        /** @var Doku_Renderer_xhtml $renderer */
         if ($mode == 'xhtml') {
             global $INFO;
 
@@ -78,8 +69,10 @@ class syntax_plugin_latexcaption_reference extends \dokuwiki\Extension\SyntaxPlu
                 $this->$helper = plugin_load('helper', 'latexcaption');
 
             $markup = '<a href="#'.$label.'">';
+
             // Retrieve the figure label from the global array or metadata
-            $caption = ($caption_count[$label]) ? $caption_count[$label] : $INFO['meta']['plugin']['latexcaption']['references'][$label];
+            $caption = $caption_count[$label] ? $caption_count[$label] : $INFO['meta']['plugin']['latexcaption']['references'][$label];
+
             if ($caption) {
                 list($type, $num, $parnum) = $caption;
                 if (substr($type, 0, 3) == 'sub') {
