@@ -29,7 +29,7 @@ class action_plugin_latexcaption extends \dokuwiki\Extension\ActionPlugin {
                      'type' => 'format',
                      'title' => $this->getLang('figure'),
                      'icon' => '../../plugins/latexcaption/images/fig.png',
-                     'open' => '<figure flex-center|fig_label>\n',
+                     'open' => '<figure center|fig_label>\n',
                      'sample' => '{{:img |title}}',
                      'close' => '\n<'.$captiontag.'>caption</'.$captiontag.'>\n</figure>',
                 ),
