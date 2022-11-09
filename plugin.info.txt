@@ -1,7 +1,7 @@
 base   latexcaption
 author Ben van Magill
 email  ben.vanmagill16@gmail.com
-date   2022-05-30
+date   2022-11-09
 name   latexcaption plugin
 desc   Adds syntax for latex-like figure captions and numbering
 url    https://github.com/bennvan/dokuwiki-plugin-latexcaption
