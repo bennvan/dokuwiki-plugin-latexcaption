@@ -65,8 +65,8 @@ class syntax_plugin_latexcaption_reference extends \dokuwiki\Extension\SyntaxPlu
         if ($mode == 'xhtml') {
             global $INFO;
 
-            if (!$this->$helper)
-                $this->$helper = plugin_load('helper', 'latexcaption');
+            if (!$this->helper)
+                $this->helper = plugin_load('helper', 'latexcaption');
 
             $markup = '<a href="#'.$label.'">';
 
@@ -77,7 +77,7 @@ class syntax_plugin_latexcaption_reference extends \dokuwiki\Extension\SyntaxPlu
                 list($type, $num, $parnum) = $caption;
                 if (substr($type, 0, 3) == 'sub') {
                     $type = substr($type, 3);
-                    $markup .= $this->getLang($type.$langset).' '.$parnum.'('.$this->$helper->number_to_alphabet($num).')';
+                    $markup .= $this->getLang($type.$langset).' '.$parnum.'('.$this->helper->number_to_alphabet($num).')';
                 }
                 else{
                     $markup .= $this->getLang($type.$langset).' '.$num;

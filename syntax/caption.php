@@ -249,8 +249,8 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
 
                 $separator = (in_array('blank', $opts) ? '' : ': ');
 
-                if (!$this->$helper)
-                    $this->$helper = plugin_load('helper', 'latexcaption');
+                if (!$this->helper)
+                    $this->helper = plugin_load('helper', 'latexcaption');
 
                 // Rendering a caption
                 if ($incaption) {
@@ -259,7 +259,7 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
                     // if ($label) $markup .= ' title="'.$label.'"';
                     $markup .= '>';
                     if (substr($type, 0, 3) == 'sub') {
-                        $markup .= '('.$this->$helper->number_to_alphabet($count).') ';
+                        $markup .= '('.$this->helper->number_to_alphabet($count).') ';
                     }
                     else {
                         $markup .= $this->getLang($type.$langset).' '. $count.$separator;
