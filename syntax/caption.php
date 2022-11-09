@@ -84,10 +84,14 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
             // Strip the <>
             $match = substr($match,1,-1);
             // Retrieve the label name if any
-            list($matches, $label) = explode('|', $match, 2);
-            // retrieve type and options if any
-            list($type, $opts) = explode(' ', trim($matches), 2);
+            $match_arr = explode('|', $match, 2);
+            $matches = $match_arr[0];
+            $label = count($match_arr) == 2 ? $match_arr[1] : '';
 
+            // retrieve type and options if any
+            $match_arr = explode(' ', trim($matches), 2);
+            $type = $match_arr[0];
+            $opts = count($match_arr) == 2 ? $match_arr[1] : '';
             // explode again in the case of multiple options;
             $opts = (!empty($opts) ? explode(' ', $opts) : ['noalign',]);
 
