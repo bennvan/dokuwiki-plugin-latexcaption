@@ -16,6 +16,7 @@ $lang['codeblockabbrev'] = 'Listing.';
 $lang['fileblocklong'] = 'Listing';
 $lang['fileblockabbrev'] = 'Listing.';
 $lang['figure'] = 'Add figure with caption';
+$lang['subfigure'] = 'Add figure with subfigure';
 $lang['table'] = 'Add table with caption';
 $lang['code'] = 'Add code listing with caption';
 $lang['file'] = 'Add file listing with caption';

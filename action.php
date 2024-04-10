@@ -35,6 +35,14 @@ class action_plugin_latexcaption extends \dokuwiki\Extension\ActionPlugin {
                 ),
                 array(
                      'type' => 'format',
+                     'title' => $this->getLang('subfigure'),
+                     'icon' => '../../plugins/latexcaption/images/subfig.png',
+                     'open' => '<figure center|fig_label>\n<subfigure|subfig_a_label>\n',
+                     'sample' => '{{:img1 |title}}',
+                     'close' => '\n<'.$captiontag.'>subfigure a caption</'.$captiontag.'>\n</subfigure>\n<subfigure|subfig_b_label>\n{{:img2 | title}}\n<'.$captiontag.'>subfigure b caption</'.$captiontag.'>\n</subfigure>\n<'.$captiontag.'>Main caption</'.$captiontag.'>\n</figure>',
+                ),
+                array(
+                     'type' => 'format',
                      'title' => $this->getLang('table'),
                      'icon' => '../../plugins/latexcaption/images/tab.png',
                      'open' => '<table |tab_label>\n<'.$captiontag.'>caption</'.$captiontag.'>\n',
