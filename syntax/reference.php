@@ -63,6 +63,7 @@ class syntax_plugin_latexcaption_reference extends \dokuwiki\Extension\SyntaxPlu
             }
 
         global $caption_count;
+        global $INFO;
 
         $type = $params['type'];
         $label = $params['label'];
@@ -82,8 +83,6 @@ class syntax_plugin_latexcaption_reference extends \dokuwiki\Extension\SyntaxPlu
 
         /** @var Doku_Renderer_xhtml $renderer */
         if ($mode == 'xhtml') {
-            global $INFO;
-
             if (!$this->helper)
                 $this->helper = plugin_load('helper', 'latexcaption');
 
