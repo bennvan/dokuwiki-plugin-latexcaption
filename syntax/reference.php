@@ -45,7 +45,6 @@ class syntax_plugin_latexcaption_reference extends \dokuwiki\Extension\SyntaxPlu
         list($type, $label) = explode('>',$match);
         // Set the params
         $params['label'] = $label; 
-        $params['opts'] = $opts;
         $params['type'] = $type;
 
         return array($state, $match, $pos, $params);
