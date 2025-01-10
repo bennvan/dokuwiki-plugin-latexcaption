@@ -8,3 +8,5 @@
 
 $meta['abbrev'] = array('onoff');
 $meta['captiontag']  = array('multichoice', '_choices' => array('caption', 'figcaption', 'ltcaption'));
+$meta['mathjaxref'] = array('onoff');
+$meta['alwaysautoref'] = array('onoff');

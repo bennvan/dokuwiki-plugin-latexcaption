@@ -94,9 +94,18 @@ It is also possible to have more than one image in a figure/subfigure to group t
 
 In text referencing:
 -------------
+To render references with the type and number:
+```
+{{ref>label}} or
+{{autoref>label}}
+```
+To render references with only the number, disable `alwaysautoref` and use:
 ```
 {{ref>label}}
 ```
+
+If you use the MathJax plugin, enable `mathjaxref`, to have labels not captured by this plugin passed on for rendering in javascript with MathJax. This ensures the referencing syntax in dokuwiki is consistent.
+
 Warning: References may render unexpected results if your labels are not unique across all figures, subfigures, tables etc.!
 
 Set counter:

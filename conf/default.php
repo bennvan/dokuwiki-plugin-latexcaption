@@ -8,3 +8,5 @@
 
 $conf['abbrev'] = 0;
 $conf['captiontag'] = 'caption';
+$conf['mathjaxref'] = 0;
+$conf['alwaysautoref'] = 1;
