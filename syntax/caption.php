@@ -16,6 +16,7 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
      */
     private static $_types = array('figure', 'table','codeblock','fileblock');
     private $caption_count = array();
+    private $_counts = array();
     private $_type = '';
     private $_incaption = false;
     private $_label = '';
@@ -95,27 +96,25 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
             // explode again in the case of multiple options;
             $opts = (!empty($opts) ? explode(' ', $opts) : ['noalign',]);
 
-            // Set dynamic class counter variable
-            $type_counter_def = '_'.$type.'_count';
-
             // Increment the counter of relevant type
             // Store the type in class for caption match to determine what html tag to use
             // This is ok since we will never have nested figures and more than one caption
             $this->_type = $type;
             $this->_label = $label;
             $this->_opts = $opts;
-            $this->{$type_counter_def} = (!isset($this->{$type_counter_def}) ? 1 : $this->{$type_counter_def}+1);
+            $this->_counts[$type] = ($this->_counts[$type] ?? 0) + 1;
 
             // save params to class variables (cached for use in render)
-            $type_counter = $this->{$type_counter_def};
+            $type_counter = $this->_counts[$type];
 
             // Set global variable if theres a label (used for ref)
             if ($label) {
                 $label = trim($label);
+                $parcount = null;
                 // Check if we are counting a subtype to store parent in array for references
                 if ($this->isSubType($type)) {
                     $partype = $this->getParType($type);
-                    $parcount = $this->{'_'.$partype.'_count'};
+                    $parcount = $this->_counts[$partype] ?? null;
                 }
                 // Get caption metadata ready for use in reference syntax. Also store in global array for preview to render correctly
                 $this->caption_count[$label] = array($type, $type_counter, $parcount);
@@ -146,7 +145,7 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
             $params['label'] = $this->_label;
             $params['xhtml']['captagtype'] = (in_array($type, ['figure', 'subfigure']) ? 'figcaption' : 'div');
             $params['incaption'] = $this->_incaption;
-            $params['type_counter'] = $this->{'_'.$type.'_count'};
+            $params['type_counter'] = $this->_counts[$type] ?? 0;
             $params['type'] = $type;
             // Decide what caption options to send to renderer
             $params['opts'] = ($this->_nested ? $this->_opts : $this->_parOpts);
@@ -167,7 +166,7 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
             }
             else {
                 // reset subtype counter
-                $this->{'_sub'.$type.'_count'} = 0;
+                $this->_counts['sub'.$type] = 0;
             }
             $params['type'] = $type;
             $params['xhtml']['tagtype'] = (in_array($type, ['figure', 'subfigure']) ? 'figure' : 'div');
@@ -189,7 +188,7 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
             }
 
             // Update the counter. offset by 1 since counter is incremented on caption enter
-            $this->{'_'.$type.'_count'} = $num-1;
+            $this->_counts[$type] = $num-1;
 
             return true;
         }
@@ -258,7 +257,7 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
 
                 // Rendering a caption
                 if ($incaption) {
-                    $markup .= '<'.$captagtype.' class="plugin_latexcaption_caption"><span class="plugin_latexcaption_caption_number"';
+                    $markup = '<'.$captagtype.' class="plugin_latexcaption_caption"><span class="plugin_latexcaption_caption_number"';
                     // Set title to label
                     // if ($label) $markup .= ' title="'.$label.'"';
                     $markup .= '>';

@@ -71,7 +71,7 @@ class syntax_plugin_latexcaption_reference extends \dokuwiki\Extension\SyntaxPlu
         // Should we display the reference type
         $disptype = (substr($type, 0, 4) == 'auto') || $this->getConf('alwaysautoref');
         // Retrieve the figure label from the global array or metadata
-        $caption = $caption_count[$label] ? $caption_count[$label] : $INFO['meta']['plugin']['latexcaption']['references'][$label];
+        $caption = $caption_count[$label] ?? $INFO['meta']['plugin']['latexcaption']['references'][$label] ?? null;
 
         // If we cant find a matching label we assume its for a mathjax equation
         $mathjaxref = false;
