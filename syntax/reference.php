@@ -94,9 +94,12 @@ class syntax_plugin_latexcaption_reference extends \dokuwiki\Extension\SyntaxPlu
                 return true;
             }
 
-            $markup = '<a href="#'.$label.'">';
+            $markup = '<a href="#'.$renderer->_xmlEntities($label).'">';
 
-            if ($caption) {
+            if (!empty($caption['noprefix'])) {
+                // A prefix-free caption uses its label even with alwaysautoref enabled.
+                $markup .= $renderer->_xmlEntities($label);
+            } elseif ($caption) {
                 list($type, $num, $parnum) = $caption;
                 if (substr($type, 0, 3) == 'sub') {
                     $type = substr($type, 3);

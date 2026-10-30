@@ -50,6 +50,7 @@ Options:
 
  - Alignment classes: `left`, `center`, `right`, `even`,`w-[40,50,60,70,80]` and can be used in conjunction with optional media queries (`-sm`, `-md`, `-lg`, `-xl`) eg. `right-sm w-80-sm`.  `even` may only be used with figures.
  - No colon: `blank`. Use this if you dont want to print a ':' after the figure number.
+ - Caption text only: `noprefix`. Omit the entire caption prefix (such as `Figure 1:` or `(a)`). This option applies to the individual block; parent figures and subfigures can use it independently.
 
 If you want to apply your own css stying to the figures. Any option input are added as a class in the form `plugin_latexcaption_{option}`.
 
@@ -105,6 +106,19 @@ To render references with only the number, disable `alwaysautoref` and use:
 ```
 
 If you use the MathJax plugin, enable `mathjaxref`, to have labels not captured by this plugin passed on for rendering in javascript with MathJax. This ensures the referencing syntax in dokuwiki is consistent.
+
+For a block with `noprefix`, its label is displayed as the link text (case sensitive) instead of its type and number, even when `alwaysautoref` is enabled.
+
+```
+See {{ref>Equipment}}.
+
+<figure center noprefix|Equipment>
+ {{image1.jpg?direct&200}}
+ <caption>Available equipment</caption>
+</figure>
+```
+
+This displays only `Available equipment` under the image as the caption and `Equipment` as the in-text reference link. A label is optional if you do not need to reference the image.
 
 Warning: References may render unexpected results if your labels are not unique across all figures, subfigures, tables etc.!
 

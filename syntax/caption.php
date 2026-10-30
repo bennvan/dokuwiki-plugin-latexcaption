@@ -118,6 +118,9 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
                 }
                 // Get caption metadata ready for use in reference syntax. Also store in global array for preview to render correctly
                 $this->caption_count[$label] = array($type, $type_counter, $parcount);
+                if (in_array('noprefix', $opts, true)) {
+                    $this->caption_count[$label]['noprefix'] = true;
+                }
                 $caption_count = $this->caption_count;
             }
 
@@ -257,17 +260,18 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
 
                 // Rendering a caption
                 if ($incaption) {
-                    $markup = '<'.$captagtype.' class="plugin_latexcaption_caption"><span class="plugin_latexcaption_caption_number"';
-                    // Set title to label
-                    // if ($label) $markup .= ' title="'.$label.'"';
-                    $markup .= '>';
-                    if (substr($type, 0, 3) == 'sub') {
-                        $markup .= '('.$this->helper->number_to_alphabet($count).') ';
+                    $markup = '<'.$captagtype.' class="plugin_latexcaption_caption">';
+                    if (!in_array('noprefix', $opts, true)) {
+                        $markup .= '<span class="plugin_latexcaption_caption_number">';
+                        if (substr($type, 0, 3) == 'sub') {
+                            $markup .= '('.$this->helper->number_to_alphabet($count).') ';
+                        }
+                        else {
+                            $markup .= $this->getLang($type.$langset).' '. $count.$separator;
+                        }
+                        $markup .= '</span>';
                     }
-                    else {
-                        $markup .= $this->getLang($type.$langset).' '. $count.$separator;
-                    }
-                    $markup .= '</span><span class="plugin_latexcaption_caption_text">';
+                    $markup .= '<span class="plugin_latexcaption_caption_text">';
 
                     $renderer->doc .= $markup;
                 } 
