@@ -199,6 +199,32 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
         return true;
     }
 
+    /** Fixed paper layout: mPDF does not implement flexbox or media queries. */
+    private function pdfLayout($type, array $opts) {
+        $align = 'center';
+        $width = null;
+        // Apply base options, then the closest available desktop breakpoint.
+        foreach (array('', '-xl', '-lg', '-xs', '-sm', '-md') as $suffix) {
+            foreach ($opts as $opt) {
+                if (preg_match('/^(left|right|center|even)' . $suffix . '$/', $opt, $match)) {
+                    $align = $match[1];
+                }
+                if (preg_match('/^w-(40|50|60|70|80)' . $suffix . '$/', $opt, $match)) {
+                    $width = (int) $match[1];
+                }
+            }
+        }
+        if ($type === 'subfigure') {
+            // Two columns by default; explicit w-* options can form unequal rows.
+            return 'float:left;width:' . (($width ?? 50) - 2) . '%;margin:0 1% 3mm;padding:0;clear:none';
+        }
+        if ($type !== 'figure') return '';
+        if ($align === 'left' || $align === 'right') {
+            return 'float:' . $align . ';width:' . ($width ?? 48) . '%;margin:0 1% 3mm;padding:0';
+        }
+        return 'width:' . ($width ?? 100) . '%;margin:0 auto 3mm;padding:0';
+    }
+
     public function render($mode, Doku_Renderer $renderer, $data) {
 
         if (empty($data)) {
@@ -224,10 +250,12 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
 
         /** @var Doku_Renderer_xhtml $renderer */
         elseif ($mode == 'xhtml') {
+            $pdf = $renderer instanceof renderer_plugin_dw2pdf;
             if ($state == DOKU_LEXER_ENTER) {
                 // We know we already have a valid type on entering this
                 $type = $params['type'];
                 $tagtype = $params['xhtml']['tagtype'];
+                if ($pdf) $tagtype = 'div';
                 $label = $params['label'];
                 $opts = $params['opts'];
 
@@ -240,13 +268,21 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
                     $markup .= 'id="'.$renderer->_xmlEntities($label).'"';
                 }
 
+                if ($pdf) {
+                    $markup .= ' style="' . $this->pdfLayout($type, $opts) . '"';
+                }
+
                 $markup .= '>';
+                if ($pdf && $label) {
+                    $markup .= '<a name="' . $renderer->_xmlEntities($label) . '"></a>';
+                }
                 $renderer->doc .= $markup;
                 return true; 
             }
 
             if ($state == DOKU_LEXER_MATCHED) {
                 $captagtype = $params['xhtml']['captagtype'];
+                if ($pdf) $captagtype = 'div';
                 $incaption = $params['incaption'];
                 $count = $params['type_counter'];
                 $type = $params['type'];
@@ -289,6 +325,12 @@ class syntax_plugin_latexcaption_caption extends \dokuwiki\Extension\SyntaxPlugi
 
             if ($state == DOKU_LEXER_EXIT) {
                 $tagtype = $params['xhtml']['tagtype'];
+                if ($pdf) {
+                    $tagtype = 'div';
+                    if ($params['type'] === 'figure') {
+                        $renderer->doc .= '<div style="clear:both"></div>';
+                    }
+                }
                 $renderer->doc .= "</$tagtype>";
                 return true;
             }

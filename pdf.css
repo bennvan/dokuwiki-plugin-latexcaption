@@ -1,0 +1,29 @@
+/* mPDF-friendly layout; HTML figure/figcaption are replaced only in PDF exports. */
+.plugin_latexcaption_figure, .plugin_latexcaption_subfigure {
+    display: block;
+    position: static;
+    overflow: visible;
+    text-align: center;
+    max-width: none;
+}
+
+.plugin_latexcaption_figure img, .plugin_latexcaption_subfigure img {
+    float: none;
+    max-width: 100%;
+    height: auto;
+}
+.plugin_latexcaption_figure p, .plugin_latexcaption_subfigure p { margin: 0 0 1mm; }
+.plugin_latexcaption_figure .plugin_latexcaption_caption,
+.plugin_latexcaption_subfigure .plugin_latexcaption_caption,
+.plugin_latexcaption_table .plugin_latexcaption_caption,
+.plugin_latexcaption_codeblock .plugin_latexcaption_caption,
+.plugin_latexcaption_fileblock .plugin_latexcaption_caption {
+    display: block;
+    clear: both;
+    width: auto;
+    text-align: center;
+    font-size: 90%;
+    margin: 1mm 0 3mm;
+    padding: 0;
+}
+.plugin_latexcaption_caption_number { font-weight: bold; }
